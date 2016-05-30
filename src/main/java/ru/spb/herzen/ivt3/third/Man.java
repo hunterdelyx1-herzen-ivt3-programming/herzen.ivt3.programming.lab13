@@ -2,6 +2,8 @@ package ru.spb.herzen.ivt3.third;
 
 import java.util.Random;
 
+import static sun.misc.Version.print;
+
 public class Man extends Thread{
     public int money;
     private int startMoney;
@@ -24,18 +26,22 @@ public class Man extends Thread{
         this.friend = friend;
     }
 
+    public int add(int amount) {
+        int tmp = money + amount;
+        money = tmp;
+        return tmp;
+    }
+
     public void run() {
         Random random = new Random();
         int check = friend.getStartMoney() + this.getStartMoney();
         for (int i = 0; i< 1000; i++) {
             int amount = random.nextInt(money);
 
-            this.money = this.money - amount;
-            friend.money = friend.money + amount;
+            int tmpf = this.add(-amount);
+            int tmps = friend.add(amount);
 
-            int tmpf = this.money;
-            int tmps = friend.money;
-            System.out.println(amount + " " + tmpf + " " + tmps);
+            //System.out.println(this.getName() + " " + amount + " " + tmpf + " " + tmps);
 
             if (tmpf + tmps != check) {
                 System.out.println("YOU FACED RACE CONDITION");
