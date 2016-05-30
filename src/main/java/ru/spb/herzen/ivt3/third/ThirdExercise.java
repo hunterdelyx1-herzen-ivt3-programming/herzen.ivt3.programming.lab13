@@ -1,40 +1,23 @@
 package ru.spb.herzen.ivt3.third;
 
+import java.util.Random;
+
 public class ThirdExercise {
     public static void main(String[] args) {
-        Bank bank = new Bank();
+        Man client = new Man("John", 1000000);
+        Man client1 = new Man("Laura", 1000000);
 
-        int bankClientStart = 10000;
-        int bankClient1Start = 1500;
+        client.setFriend(client1);
+        client1.setFriend(client);
 
-        BankClient bankClient = new BankClient("John", bankClientStart, bank);
-        BankClient bankClient1 = new BankClient("Laura", bankClient1Start, bank);
+        client.start();
+        client1.start();
 
-        bankClient.setFriend(bankClient1);
-        bankClient1.setFriend(bankClient);
+        while(client.isAlive());
+        while(client1.isAlive());
 
-        bankClient.start();
-        bankClient1.start();
-
-
-        try {
-            bankClient.join();
-            bankClient1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        bankClient.status();
-
-        System.out.println(bankClient.getGivenName() + " spent " + bankClient.getSpent());
-        System.out.println(bankClient1.getGivenName() + " spent " + bankClient1.getSpent());
-
-        System.out.println(Math.abs(bankClient.getSpent() - bankClient1.getSpent()));
-
-        System.out.print(bankClientStart + " - " + bankClient.getSpent() + " + " + bankClient1.getSpent() + " = ");
-        System.out.println(bankClientStart - bankClient.getSpent() + bankClient1.getSpent());
-        System.out.print(bankClient1Start + " - " + bankClient1.getSpent() + " + " + bankClient.getSpent()  + " = ");
-        System.out.println(bankClient1Start - bankClient1.getSpent() + bankClient.getSpent());
+        System.out.println(client.getName() + " money: " + client.money);
+        System.out.println(client1.getName() + " money: " + client1.money);
     }
 }
 

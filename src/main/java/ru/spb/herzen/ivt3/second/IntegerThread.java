@@ -7,4 +7,3 @@ public class IntegerThread extends Thread {
         }
     }
 }
-// Xunto <hunterdelyx1@gmail.com>
